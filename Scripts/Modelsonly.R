@@ -132,7 +132,7 @@ save(Bin_Model_null2, file="Data/Converged_models/Bin_Model_null2.RData")
 load("Data/Converged_models/Bin_Model_null2.RData") # Better this one without the 0
 Bin_Model_null <- Bin_Model_null2 
 
-plot(Bin_Model_null) 
+plot(Bin_Model_null)
 pp_check(Bin_Model_null, type = "scatter_avg") # Structured data, could be better
 bayes_R2(Bin_Model_null) # 
 summary (Bin_Model_null)
