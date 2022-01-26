@@ -119,10 +119,18 @@ plot(me_full, ask = FALSE, points = F) # Probability scale!
 # Bin_Model_null <- brm (Inc_points | trials(TotPoints) ~ Depth_num + (0 + Depth_num | Island_Island_Site),
 #                          data = Data_Bayes3_Stand_full, family = binomial(),  # prior = my_priors,
 #                          control = list(adapt_delta = 0.95, max_treedepth = 13),
-#                          iter = 4000, warmup = 1000, chains = 2, cores = 2) # ,backend = "cmdstanr",threads = 20 / brms::
-# save(Bin_Model_null, file="~/Documents/AAASea_Science/AAA_PhD_Thesis/Photoquadrats/Data_Scripts/Dataframes/Bayesian_Outputs/Bayesian_Tests/Bin_Model_null.RData")
+#                          iter = 1000, warmup = 500, chains = 2, cores = 2) # ,backend = "cmdstanr",threads = 20 / brms::
+# save(Bin_Model_null, file="Data/Converged_models/Bin_Model_null.RData")
 load("Data/Converged_models/Bin_Model_null.RData")
 
+# Without the (0 + )
+Bin_Model_null2 <- brm (Inc_points | trials(TotPoints) ~ Depth_num + (Depth_num | Island_Island_Site),
+                          data = Data_Bayes3_Stand_full, family = binomial(),  # prior = my_priors,
+                          control = list(adapt_delta = 0.95, max_treedepth = 13),
+                          iter = 4000, warmup = 1000, chains = 2, cores = 2) # ,backend = "cmdstanr",threads = 20 / brms::
+save(Bin_Model_null2, file="Data/Converged_models/Bin_Model_null2.RData")
+load("Data/Converged_models/Bin_Model_null2.RData") # Better this one without the 0
+Bin_Model_null <- Bin_Model_null2 
 
 plot(Bin_Model_null) 
 pp_check(Bin_Model_null, type = "scatter_avg") # Structured data, could be better
@@ -143,7 +151,7 @@ TotPoints <- unique (Bin_Model_null$data$TotPoints)
 ref_data <- crossing(Depth_num, Island_Island_Site, TotPoints)
 
 # Forest plots with the posteriors
-fitted_values <- posterior_epred(Bin_Model_null, newdata = ref_data, re_formula = 'Inc_points | trials(TotPoints) ~ Depth_num + (0 + Depth_num | Island_Island_Site)')
+fitted_values <- posterior_epred(Bin_Model_null, newdata = ref_data, re_formula = 'Inc_points | trials(TotPoints) ~ Depth_num + (Depth_num | Island_Island_Site)')
 
 # Number of rows equals to ref_data and number of dimensions is equal to (Island_Island_Site*Depths)
 # str (fitted_values)
@@ -156,8 +164,8 @@ fitted_values <- t(fitted_values)
 ref_data_fitted <- cbind (ref_data [c(1,2)],fitted_values)
 
 # Multiple columns of predictions into a single one. 
-ref_data_fitted <- melt (ref_data_fitted, id.vars = c ("Depth_num", "Island_Island_Site"), na.rm = F, measure.vars = c(3:2002), value.name = c("Posterior_Prob"))
-colnames (ref_data_fitted) [4] <- "Posterior_Prob" 
+ref_data_fitted <- melt (ref_data_fitted, id.vars = c ("Depth_num", "Island_Island_Site"), na.rm = F, measure.vars = c(3:6002), value.name = c("Posterior_Prob"))
+colnames (ref_data_fitted) [4] <- "Posterior_Prob_" 
 ref_data_fitted$Depth = factor (ref_data_fitted$Depth, levels = c ("120", "90","60", "40","20", "6"))
 colours <- brewer.pal(6,"GnBu")
 
@@ -169,8 +177,16 @@ Data_Bayes3_Bayesian <- merge (coral_cover_Island_Site, ref_data_fitted_Mean_Se)
 Data_Bayes3_Bayesian$Island <- sub("\\_.*", "", Data_Bayes3_Bayesian$Island_Island_Site)
 Data_Bayes3_Bayesian$Site <- sub("^[^_]*_", "", Data_Bayes3_Bayesian$Island_Island_Site)
 
+
+Data_Bayes3_Bayesian$TotPoints <- 75
+Data_Bayes3_Bayesian$Inc_points <- (Data_Bayes3_Bayesian$Cover * Data_Bayes3_Bayesian$TotPoints) / 100
+# Round the points
+Data_Bayes3_Bayesian$Inc_points <-round(Data_Bayes3_Bayesian$Inc_points,0)
+Data_Bayes3_Bayesian$Non_Inc_points <-abs (Data_Bayes3_Bayesian$Inc_points - Data_Bayes3_Bayesian$TotPoints)
+
+
 ggplot(Data_Bayes3_Bayesian, aes(x=Depth, y=Cover, colour = Island)) +
-  geom_point(aes(y=Cover, fill = Island, colour = Island, shape = Site), size=2.5) +
+  geom_point(aes(y=Inc_points, fill = Island, colour = Island, shape = Site), size=2.5) +
   geom_ribbon(aes (ymin = Post_Depth_Mean - Post_Depth_Sd, ymax = Post_Depth_Mean + Post_Depth_Sd), alpha = 0.3, linetype=3,colour="grey23",size = 1,fill="grey21") +
   #geom_point(aes(y=Post_Depth_Mean), shape=21, fill="white", size=4) + 
   geom_line(aes(y=Post_Depth_Mean), colour="grey13", size=2) +
@@ -191,7 +207,6 @@ Bin_Model_full_3 <- brm (Inc_points | trials(TotPoints) ~ Depth_num + Light_Rel_
                          data = Data_Bayes3_Stand_full, family = binomial(),  # prior = my_priors,
                          control = list(adapt_delta = 0.95, max_treedepth = 13),
                          iter = 6000, warmup = 2000, chains = 2, cores = 2) # ,backend = "cmdstanr",threads = 20 / brms::
-load("Data/Converged_models/Bin_Model_full_3.RData")
 
 
 plot(Bin_Model_full_3) 
@@ -209,6 +224,10 @@ plot(me_full, ask = FALSE, points = F) # Probability scale!
 # Plots to make fig 2 from full model with interactions
 me_full <- conditional_effects(Bin_Model_full_2, nsamples = 200, spaghetti = F, probs = c(0.33, 0.66))
 
+
+
+
+
 # Light rel
 plot_light <- plot(me_full, plot = FALSE)[["Depth_num:Light_Rel_Ind"]] + # scale_y_continuous(limits = c(-5,80)) +
   scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
@@ -225,6 +244,42 @@ plot_Temp <- plot(me_full, plot = FALSE)[["Depth_num:Temp_Variability"]] + # sca
 plot_Temp 
 
 
+# Slope - factor to select the order on which they appear!
+me_full$`Depth_num:Bathymetry_slope`$Bathymetry_slope =  factor(me_full$`Depth_num:Bathymetry_slope`$Bathymetry_slope, levels = c ("Steep","Moderate","Wall","Gentle"))
+plot_slope <- plot(me_full, plot = FALSE)[["Depth_num:Bathymetry_slope"]] + # scale_y_continuous(limits = c(-5,60)) +
+  scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
+  labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Bathymetry slope") + theme_classic() +
+  theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
+plot_slope
+
+# Dominant substrate
+plot_domsubs <- plot(me_full, plot = FALSE)[["Depth_num:Dominant.Substrate"]] + # scale_y_continuous(limits = c(-5,60)) +
+  scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
+  labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Dom. subs. structure") + theme_classic() +
+  theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
+plot_domsubs
+
+# Non-benthic substrate - I would skip these guys!
+plot_non_bent <- plot(me_full, plot = FALSE)[["Depth_num:Dominant.benthic.non_coral"]] + # scale_y_continuous(limits = c(-5,60)) +
+  scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
+  labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Dom. benthic (non corals)") + theme_classic() +
+  theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
+plot_non_bent
+
+
+(Figure_2 = plot_light +  plot_Temp + plot_domsubs + plot_slope + plot_layout(guides = 'collect', ncol = 2)  & theme(legend.position="bottom", legend.box="vertical", legend.margin=margin()))
+
+# Depth increases the likelihood of coral cover...
+
+plot_depth <- plot(me_full, plot = FALSE)[["Depth_num"]] + # scale_y_continuous(limits = c(-5,80)) +
+  scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
+  labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Depth (m)") + theme_classic() +
+  theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
+plot_depth # When Rel light increases, coral cover increase
+
+
+
+###############################################
 
 
 
