@@ -1,7 +1,7 @@
 # rm (list = ls())
 
 
-# Install.packages
+# Install.packages 
 library (dplyr); library(tidyverse); require (plyr); require (reshape2);
 library (data.table); library(RColorBrewer);  library (tidyr);  library (ggplot2); 
 require  (stats); require (matrixStats); 
@@ -9,11 +9,10 @@ library (car);  library (glmm); library (glmnet); library (glmmTMB); library (lm
 library (cowplot); library (patchwork); library (scales);library(viridisLite) ;  library(fishualize);
 library(ggridges); library (stringr)
 
-# Open the data
-
 
 library('brms');library('rstan');library('parallel');library('rstanarm')
 
+# Open the data
 coral_cover_Island_Site <- read.csv(file = "Data/coral_cover_Island_Site.csv", header = T, dec = ".", sep = ",", row.names = 1) 
 
 Data_Bayes3 <- read.csv(file = "Data/Data_Bayes3.csv", header = T, dec = ".", sep = ",", row.names = 1) 
