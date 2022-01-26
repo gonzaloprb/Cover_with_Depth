@@ -14,9 +14,9 @@ library(ggridges); library (stringr)
 
 library('brms');library('rstan');library('parallel');library('rstanarm')
 
-coral_cover_Island_Site <- read.csv(file = "Data/coral_cover_Island_Site.csv", header = T, dec = ".", sep = ",", row.names = 1)
+coral_cover_Island_Site <- read.csv(file = "Data/coral_cover_Island_Site.csv", header = T, dec = ".", sep = ",", row.names = 1) 
 
-Data_Bayes3 <- read.csv(file = "Data/Data_Bayes3.csv", header = T, dec = ".", sep = ",", row.names = 1)
+Data_Bayes3 <- read.csv(file = "Data/Data_Bayes3.csv", header = T, dec = ".", sep = ",", row.names = 1) 
 
 
 ### The Null #(OLD)# model! 
