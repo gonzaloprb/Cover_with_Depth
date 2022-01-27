@@ -286,6 +286,12 @@ plot_Temp <- plot(me_full, plot = FALSE)[["Depth_num:Temp_Variability"]] + # sca
   theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
 plot_Temp 
 
+plot_Temp_rel <- plot(me_full, plot = FALSE)[["Depth_num:Temp_Rel_Ind"]] + # scale_y_continuous(limits = c(-5,80)) +
+  scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
+  labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Temp relative Index") + theme_classic() +
+  theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
+plot_Temp_rel
+
 
 # Slope - factor to select the order on which they appear!
 me_full$`Depth_num:Bathymetry_slope`$Bathymetry_slope =  factor(me_full$`Depth_num:Bathymetry_slope`$Bathymetry_slope, levels = c ("Steep","Moderate","Wall","Gentle"))
