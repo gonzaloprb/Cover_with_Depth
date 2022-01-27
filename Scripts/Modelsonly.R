@@ -11,7 +11,6 @@ library(ggridges); library (stringr)
 
 # Open the data 
 
-
 library('brms');library('rstan');library('parallel');library('rstanarm')
 
 coral_cover_Island_Site <- read.csv(file = "Data/coral_cover_Island_Site.csv", header = T, dec = ".", sep = ",", row.names = 1) 
@@ -269,7 +268,7 @@ plot(me_full, ask = FALSE, points = F) # Probability scale!
 
 
 # Plots to make fig 2 from full model with interactions
-me_full <- conditional_effects(Bin_Model_full_3, nsamples = 200, spaghetti = F, probs = c(0.33, 0.66))
+me_full <- conditional_effects(Bin_Model_full_3, nsamples = 1000, spaghetti = F, probs = c(0.25, 0.75))
 
 # Light rel
 plot_light <- plot(me_full, plot = FALSE)[["Depth_num:Light_Rel_Ind"]] + # scale_y_continuous(limits = c(-5,80)) +
@@ -285,12 +284,6 @@ plot_Temp <- plot(me_full, plot = FALSE)[["Depth_num:Temp_Variability"]] + # sca
   labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Temp variability (ºC)") + theme_classic() +
   theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
 plot_Temp 
-
-plot_Temp_rel <- plot(me_full, plot = FALSE)[["Depth_num:Temp_Rel_Ind"]] + # scale_y_continuous(limits = c(-5,80)) +
-  scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
-  labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Temp relative Index") + theme_classic() +
-  theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
-plot_Temp_rel
 
 
 # Slope - factor to select the order on which they appear!
@@ -308,12 +301,22 @@ plot_domsubs <- plot(me_full, plot = FALSE)[["Depth_num:Dominant.Substrate"]] + 
   theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
 plot_domsubs
 
-# Non-benthic substrate - I would skip these guys!
+# Non-benthic substrate - I would skip these guys! and the temperature relative also 
+me_full$`Depth_num:Dominant.benthic.non_coral`$Dominant.benthic.non_coral =  factor(me_full$`Depth_num:Dominant.benthic.non_coral`$Dominant.benthic.non_coral, levels = c ("Sponges", "CCA","None","Macroalgae","CnidarianonScleractinian"))
+me_full$`Depth_num:Dominant.benthic.non_coral` <- me_full$`Depth_num:Dominant.benthic.non_coral` %>% filter(!str_detect(Dominant.benthic.non_coral, '<NA>'))
 plot_non_bent <- plot(me_full, plot = FALSE)[["Depth_num:Dominant.benthic.non_coral"]] + # scale_y_continuous(limits = c(-5,60)) +
   scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
   labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Dom. benthic (non corals)") + theme_classic() +
   theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
 plot_non_bent
+
+# Temp rel
+me_full$`Depth_num:Temp_Rel_Ind`
+plot_Temp_rel <- plot(me_full, plot = FALSE)[["Depth_num:Temp_Rel_Ind"]] + # scale_y_continuous(limits = c(-5,80)) +
+  scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
+  labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Temp relative Index") + theme_classic() +
+  theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
+plot_Temp_rel
 
 
 (Figure_2 = plot_light +  plot_Temp + plot_domsubs + plot_slope + plot_layout(guides = 'collect', ncol = 2)  & theme(legend.position="bottom", legend.box="vertical", legend.margin=margin()))
