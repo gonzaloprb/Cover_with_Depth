@@ -124,11 +124,11 @@ plot(me_full, ask = FALSE, points = F) # Probability scale!
 load("Data/Converged_models/Bin_Model_null.RData")
 
 # Without the (0 + )
-Bin_Model_null2 <- brm (Inc_points | trials(TotPoints) ~ Depth_num + (Depth_num | Island_Island_Site),
-                          data = Data_Bayes3_Stand_full, family = binomial(),  # prior = my_priors,
-                          control = list(adapt_delta = 0.95, max_treedepth = 13),
-                          iter = 4000, warmup = 1000, chains = 2, cores = 2) # ,backend = "cmdstanr",threads = 20 / brms::
-save(Bin_Model_null2, file="Data/Converged_models/Bin_Model_null2.RData")
+# Bin_Model_null2 <- brm (Inc_points | trials(TotPoints) ~ Depth_num + (Depth_num | Island_Island_Site),
+#                           data = Data_Bayes3_Stand_full, family = binomial(),  # prior = my_priors,
+#                           control = list(adapt_delta = 0.95, max_treedepth = 13),
+#                           iter = 4000, warmup = 1000, chains = 2, cores = 2) # ,backend = "cmdstanr",threads = 20 / brms::
+# save(Bin_Model_null2, file="Data/Converged_models/Bin_Model_null2.RData")
 load("Data/Converged_models/Bin_Model_null2.RData") # Better this one without the 0
 Bin_Model_null <- Bin_Model_null2 
 
@@ -177,7 +177,7 @@ Data_Bayes3_Bayesian <- merge (coral_cover_Island_Site, ref_data_fitted_Mean_Se)
 Data_Bayes3_Bayesian$Island <- sub("\\_.*", "", Data_Bayes3_Bayesian$Island_Island_Site)
 Data_Bayes3_Bayesian$Site <- sub("^[^_]*_", "", Data_Bayes3_Bayesian$Island_Island_Site)
 
-
+# Extract the number of points from cover
 Data_Bayes3_Bayesian$TotPoints <- 75
 Data_Bayes3_Bayesian$Inc_points <- (Data_Bayes3_Bayesian$Cover * Data_Bayes3_Bayesian$TotPoints) / 100
 # Round the points
@@ -190,23 +190,70 @@ ggplot(Data_Bayes3_Bayesian, aes(x=Depth, y=Cover, colour = Island)) +
   geom_ribbon(aes (ymin = Post_Depth_Mean - Post_Depth_Sd, ymax = Post_Depth_Mean + Post_Depth_Sd), alpha = 0.3, linetype=3,colour="grey23",size = 1,fill="grey21") +
   #geom_point(aes(y=Post_Depth_Mean), shape=21, fill="white", size=4) + 
   geom_line(aes(y=Post_Depth_Mean), colour="grey13", size=2) +
-  scale_y_continuous(name ="Exp. Post. Pred. Distribution of falling on a coral", limits=c(-7,100), breaks = c(0,20,40,60,80,100)) +
+  scale_y_continuous(name ="Exp. Post. Pred. Distribution of points falling on a coral out of 75", limits=c(-3,75), breaks = c(0,20,40,60,75)) +
   scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
   theme_bw()  + theme_classic() + theme(plot.title = element_text(hjust=0.5, size=12, face="bold"),
                                         axis.text = element_text(size=10, colour="black"),
                                         axis.title = element_text(size=11, face="bold", colour="black"))
-# Outliers change a lot from the previous model... I don't know why at 6 m the deviation is so small
+
+# Test, transform the post depth mean expected from points to coral
+Data_Bayes3_Bayesian$Post_Depth_Mean_Cover <- (Data_Bayes3_Bayesian$Post_Depth_Mean * 100) / Data_Bayes3_Bayesian$TotPoints
+Data_Bayes3_Bayesian$Post_Depth_Sd_Cover <- (Data_Bayes3_Bayesian$Post_Depth_Sd * 100) / Data_Bayes3_Bayesian$TotPoints
+
+ggplot(Data_Bayes3_Bayesian, aes(x=Depth, y=Cover, colour = Island)) +
+  geom_point(aes(y=Cover, fill = Island, colour = Island, shape = Site), size=2.5) +
+  geom_ribbon(aes (ymin = Post_Depth_Mean_Cover - Post_Depth_Sd_Cover, ymax = Post_Depth_Mean_Cover + Post_Depth_Sd_Cover), alpha = 0.3, linetype=3,colour="grey23",size = 1,fill="grey21") +
+  #geom_point(aes(y=Post_Depth_Mean), shape=21, fill="white", size=4) + 
+  geom_line(aes(y=Post_Depth_Mean_Cover), colour="grey13", size=2) +
+  scale_y_continuous(name ="Exp. Post. Pred. Distribution of coral cover (%)", limits=c(-5,100), breaks = c(0,20,40,60,80)) +
+  scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
+  theme_bw()  + theme_classic() + theme(plot.title = element_text(hjust=0.5, size=12, face="bold"),
+                                        axis.text = element_text(size=10, colour="black"),
+                                        axis.title = element_text(size=11, face="bold", colour="black"))
+
+# Outliers change a bit from the previous model... 
 
 ###### The Null model test with binomial distribution ###### 
 
 ##### Second full model with interactions #### necessary to execute from server, in my MAC Takes 30 hours aprox!
-Bin_Model_full_3 <- brm (Inc_points | trials(TotPoints) ~ Depth_num + Light_Rel_Ind + Temp_Rel_Ind + Temp_Variability + Bathymetry_slope + 
-                           Dominant.Substrate + Dominant.benthic.non_coral + Depth_num:Light_Rel_Ind  + Temp_Rel_Ind:Depth_num + 
-                           Temp_Variability:Depth_num + Bathymetry_slope:Depth_num +
-                           Dominant.Substrate:Depth_num + Dominant.benthic.non_coral:Depth_num + (0 + Depth_num | Island_Island_Site),
-                         data = Data_Bayes3_Stand_full, family = binomial(),  # prior = my_priors,
-                         control = list(adapt_delta = 0.95, max_treedepth = 13),
-                         iter = 6000, warmup = 2000, chains = 2, cores = 2) # ,backend = "cmdstanr",threads = 20 / brms::
+# Bin_Model_full_3 <- brms::brm (Inc_points | trials(TotPoints) ~ Depth_num + Light_Rel_Ind + Temp_Rel_Ind + Temp_Variability + Bathymetry_slope + 
+#                                  Dominant.Substrate + Dominant.benthic.non_coral + Depth_num:Light_Rel_Ind  + Temp_Rel_Ind:Depth_num + 
+#                                  Temp_Variability:Depth_num + Bathymetry_slope:Depth_num +
+#                                  Dominant.Substrate:Depth_num + Dominant.benthic.non_coral:Depth_num + (0 + Depth_num | Island_Island_Site),
+#                                data = Data_Bayes3_Stand_full, family = binomial(),  # prior = my_priors,
+#                                control = list(adapt_delta = 0.95, max_treedepth = 13),
+#                                iter = 2000, warmup = 1000, chains = 10, cores = 10) # ,backend = "cmdstanr",threads = 20 / brms::
+# save(Bin_Model_full_3, file="~/Gonzalo_CoralCover/Data/Bin_Model_full_3.RData")
+load("Data/Converged_models/Bin_Model_full_3.RData")
+
+
+
+# Without the (0 + )
+# Bin_Model_full_4 <- brms::brm (Inc_points | trials(TotPoints) ~ Depth_num + Light_Rel_Ind + Temp_Rel_Ind + Temp_Variability + Bathymetry_slope + 
+#                                  Dominant.Substrate + Dominant.benthic.non_coral + Depth_num:Light_Rel_Ind  + Temp_Rel_Ind:Depth_num + 
+#                                  Temp_Variability:Depth_num + Bathymetry_slope:Depth_num +
+#                                  Dominant.Substrate:Depth_num + Dominant.benthic.non_coral:Depth_num + (Depth_num | Island_Island_Site),
+#                                data = Data_Bayes3_Stand_full, family = binomial(),  # prior = my_priors,
+#                                control = list(adapt_delta = 0.95, max_treedepth = 13),
+#                                iter = 4000, warmup = 1000, chains = 2, cores = 10) # ,backend = "cmdstanr",threads = 20 / brms::
+# save(Bin_Model_full_4, file="~/Gonzalo_CoralCover/Data/Bin_Model_full_4.RData")
+load("Data/Converged_models/Bin_Model_full_4.RData")
+Bin_Model_full_3 <- Bin_Model_full_4 
+
+# Without the (0 + ) and without the dominant benthic non-coral
+# Bin_Model_full_5 <- brms::brm (Inc_points | trials(TotPoints) ~ Depth_num + Light_Rel_Ind + Temp_Rel_Ind + Temp_Variability + Bathymetry_slope + 
+#                                  Dominant.Substrate +  Depth_num:Light_Rel_Ind  + Temp_Rel_Ind:Depth_num + 
+#                                  Temp_Variability:Depth_num + Bathymetry_slope:Depth_num +
+#                                  Dominant.Substrate:Depth_num +  (Depth_num | Island_Island_Site),
+#                                data = Data_Bayes3_Stand_full, family = binomial(),  # prior = my_priors,
+#                                control = list(adapt_delta = 0.95, max_treedepth = 13),
+#                                iter = 4000, warmup = 1000, chains = 2, cores = 10) # ,backend = "cmdstanr",threads = 20 / brms::
+# save(Bin_Model_full_5, file="~/Gonzalo_CoralCover/Data/Bin_Model_full_5.RData")
+load("Data/Converged_models/Bin_Model_full_5.RData")
+
+
+Bin_Model_full_3 <- Bin_Model_full_4 
+Bin_Model_full_3 <- Bin_Model_full_5 
 
 
 plot(Bin_Model_full_3) 
@@ -222,11 +269,7 @@ plot(me_full, ask = FALSE, points = F) # Probability scale!
 
 
 # Plots to make fig 2 from full model with interactions
-me_full <- conditional_effects(Bin_Model_full_2, nsamples = 200, spaghetti = F, probs = c(0.33, 0.66))
-
-
-
-
+me_full <- conditional_effects(Bin_Model_full_3, nsamples = 200, spaghetti = F, probs = c(0.33, 0.66))
 
 # Light rel
 plot_light <- plot(me_full, plot = FALSE)[["Depth_num:Light_Rel_Ind"]] + # scale_y_continuous(limits = c(-5,80)) +
