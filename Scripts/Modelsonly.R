@@ -249,12 +249,12 @@ Bin_Model_full_3 <- Bin_Model_full_4
 #                                iter = 4000, warmup = 1000, chains = 2, cores = 10) # ,backend = "cmdstanr",threads = 20 / brms::
 # save(Bin_Model_full_5, file="~/Gonzalo_CoralCover/Data/Bin_Model_full_5.RData")
 load("Data/Converged_models/Bin_Model_full_5.RData")
-
-
-Bin_Model_full_3 <- Bin_Model_full_4 
 Bin_Model_full_3 <- Bin_Model_full_5 
 
 
+
+# Select the best model
+Bin_Model_full_3 <- Bin_Model_full_4 
 plot(Bin_Model_full_3) 
 pp_check(Bin_Model_full_3, type = "scatter_avg") # Structured data, could be better
 bayes_R2(Bin_Model_full_3) # 
