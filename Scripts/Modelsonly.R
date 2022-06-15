@@ -68,7 +68,7 @@ ref_data_fitted <- cbind (ref_data [c(1,2)],fitted_values)
 
 # Multiple columns of predictions into a single one. 
 ref_data_fitted <- melt (ref_data_fitted, id.vars = c ("Depth_num", "Island_Island_Site"), na.rm = F, measure.vars = c(3:6002), value.name = c("Posterior_Prob"))
-colnames (ref_data_fitted) [4] <- "Posterior_Prob_" 
+colnames (ref_data_fitted) [4] <- "Posterior_Prob" 
 ref_data_fitted$Depth = factor (ref_data_fitted$Depth, levels = c ("120", "90","60", "40","20", "6"))
 colours <- brewer.pal(6,"GnBu")
 
@@ -117,6 +117,19 @@ SFig_1_Coral_cover_Depth_Hotspots
 
 ggsave ( "~/Documents/AAASea_Science/AAA_PhD_Thesis/Photoquadrats/PhD_Cover_Depth/SFig_1_Coral_cover_Depth_Hotspots.pdf", SFig_1_Coral_cover_Depth_Hotspots,width = 10, height = 6)
 
+# Figure for Graphical Abstract
+Graphical_Absrtact <- ggplot(Data_Bayes3_Bayesian, aes(x=Cover, y=Depth, colour = Island)) +
+  geom_point(aes(x=Cover, fill = Island, colour = Island, shape = Site), size=2.5) +
+  geom_ribbon(aes (xmin = Post_Depth_Mean_Cover - Post_Depth_Sd_Cover, xmax = Post_Depth_Mean_Cover + Post_Depth_Sd_Cover), alpha = 0.3, linetype=3,colour="grey23",size = 1,fill="grey21") +
+  #geom_point(aes(y=Post_Depth_Mean), shape=21, fill="white", size=4) + 
+  geom_line(aes(x=Post_Depth_Mean_Cover), colour="grey13", size=2) +
+  scale_x_continuous(name ="Exp. Post. Pred. Distribution of coral cover (%)", breaks = c(0,20,40,60,80,100), position = "top") +
+  scale_y_continuous(trans = "reverse", name ="Depth (m)", breaks = c(6,20,40,60,90,120)) +
+  theme_bw()  + theme_classic() + theme(plot.title = element_text(hjust=0.5, size=12, face="bold"),
+                                        axis.text = element_text(size=10, colour="black"),
+                                        axis.title = element_text(size=11, face="bold", colour="black"))
+Graphical_Absrtact
+ggsave ( "~/Documents/AAASea_Science/AAA_PhD_Thesis/Photoquadrats/PhD_Cover_Depth/Exp_Graph_Abst.pdf", Graphical_Absrtact,width = 10, height = 6)
 
 ### Null model ####
 
@@ -143,6 +156,8 @@ plot(Bin_Model_full)
 pp_check(Bin_Model_full, type = "scatter_avg") # Structured data, could be better
 bayes_R2(Bin_Model_full) # 
 summary (Bin_Model_full)
+
+fixef(Bin_Model_full)
 
 me_full <- conditional_effects(Bin_Model_full, nsamples = 1000, probs = c(0.25, 0.75), spaghetti = F) # Default is 0.95
 plot(me_full, ask = FALSE, points = F) # Probability scale!
@@ -171,9 +186,18 @@ plot_temp_var <- plot(me_full, plot = FALSE)[["Depth_num:Temp_Variability"]] + #
 plot_temp_var
 
 
+
 # Dominant substrate
 plot_domsubs <- plot(me_full, plot = FALSE)[["Depth_num:Dominant.Substrate"]] + # scale_y_continuous(limits = c(-5,60)) +
   scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
+  scale_color_manual(name = "",
+                     values = c("Fixed substrate"= "darkolivegreen4", 
+                                "Rubble"= "red4", 
+                                "Sediment substrate"= "gold")) +
+  scale_fill_manual(name = "",
+                    values = c("Fixed substrate"= "darkolivegreen4", 
+                               "Rubble"= "red4", 
+                               "Sediment substrate"= "gold")) +
   labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Dom. subs. structure") + theme_classic() +
   theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))
 plot_domsubs
@@ -182,6 +206,16 @@ plot_domsubs
 # Slope - factor to select the order on which they appear!
 me_full$`Depth_num:Bathymetry_slope`$Bathymetry_slope =  factor(me_full$`Depth_num:Bathymetry_slope`$Bathymetry_slope, levels = c ("Steep","Moderate","Wall","Gentle"))
 plot_slope <- plot(me_full, plot = FALSE)[["Depth_num:Bathymetry_slope"]] + # scale_y_continuous(limits = c(-5,60)) +
+  scale_color_manual(name = "",
+                     values = c("Gentle"= "tan2", 
+                                "Moderate"= "forestgreen", 
+                                "Steep"= "royalblue1",
+                                "Wall"= "red")) +
+  scale_fill_manual(name = "",
+                    values = c("Gentle"= "tan2", 
+                               "Moderate"= "forestgreen", 
+                               "Steep"= "royalblue1",
+                               "Wall"= "red")) +
   scale_x_continuous(name ="Depth (m)",limits=c(5,123), breaks = c(6,20,40,60,90,120)) +
   labs(y = "Likelihood of coral cover (%)", x = "Depth (m)", title = "Bathymetry slope") + theme_classic() +
   theme(legend.title = element_blank(), plot.title = element_text(hjust = 0.5))

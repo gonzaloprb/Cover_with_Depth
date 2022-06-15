@@ -1,0 +1,97 @@
+﻿Unique;Site;Depth;Latitude;Longitude;Geomorphology;Coast_Orientation;Bathymetry_slope;Major_biotic_or_abiotic_features;Dominant Substrate;Dominant benthic non_coral;Generic_richness
+1;GAMGAM1;6;-23.0731;-135.0162;Barrier reef;North-west;Gentle;Dead corals;Fixed substrate;None;12
+2;GAMGAM1;20;-23.0731;-135.0162;Barrier reef;North-west;Gentle;Dead corals;Fixed substrate;None;20
+3;GAMGAM1;40;-23.0731;-135.0162;Barrier reef;North-west;Moderate;Rubble and Porites;Fixed substrate;None;17
+4;GAMGAM1;60;-23.0731;-135.0162;Barrier reef;North-west;Moderate;Sediment and Pocillopora;Fixed substrate;None;18
+5;GAMGAM1;90;-23.0731;-135.0162;Barrier reef;North-west;Moderate;Sediment;Sediment substrate;Macroalgae;11
+6;GAMGAM1;120;-23.0731;-135.0162;Barrier reef;North-west;Moderate;Montipora and sediment;Sediment substrate;CCA;8
+7;GAMGAM2;6;-23.001;-134.9605;Barrier reef;North;Moderate;Dead corals and CCA;Fixed substrate;CCA;15
+8;GAMGAM2;20;-23.001;-134.9605;Barrier reef;North;Moderate;Dead corals and CCA;Fixed substrate;CCA;19
+9;GAMGAM2;40;-23.001;-134.9605;Barrier reef;North;Moderate;Solitary corals and macroalgae;Fixed substrate;Macroalgae;19
+10;GAMGAM2;60;-23.001;-134.9605;Barrier reef;North;Moderate;Macroalgae and rubble;Fixed substrate;Macroalgae;17
+11;GAMGAM2;90;-23.001;-134.9605;Barrier reef;North;Moderate;Montipora and green algae;Fixed substrate;None;12
+12;GAMGAM2;120;-23.001;-134.9605;Barrier reef;North;Moderate;Montipora and CCA;Fixed substrate;CCA;7
+13;SOCBOR1;6;-16.5031;-151.7907;Barrier reef;West;Gentle;Corals and substrate;Fixed substrate;None;10
+14;SOCBOR1;20;-16.5031;-151.7907;Barrier reef;West;Gentle;Corals;Fixed substrate;None;17
+15;SOCBOR1;40;-16.5031;-151.7907;Barrier reef;West;Moderate;Rubble and corals;Rubble;None;17
+16;SOCBOR1;60;-16.5031;-151.7907;Barrier reef;West;Steep;Pavona, Pachy, Porites;Fixed substrate;CCA;20
+17;SOCBOR1;90;-16.5031;-151.7907;Barrier reef;West;Moderate;CCA, sediment, gorgonias;Sediment substrate;CCA;5
+18;SOCBOR1;120;-16.5031;-151.7907;Barrier reef;West;Steep;Sediment and turf;Fixed substrate;None;2
+19;SOCBOR2;6;-16.4367;-151.7536;Barrier reef;North;Gentle;Corals and substrate;Fixed substrate;None;11
+20;SOCBOR2;20;-16.4367;-151.7536;Barrier reef;North;Moderate;Corals;Fixed substrate;None;20
+21;SOCBOR2;40;-16.4367;-151.7536;Barrier reef;North;Moderate;Corals;Fixed substrate;None;22
+22;SOCBOR2;60;-16.4367;-151.7536;Barrier reef;North;Moderate;Pavona, Pachy;Fixed substrate;CCA;22
+23;SOCBOR2;90;-16.4367;-151.7536;Barrier reef;North;Steep;CCA and sediment;Sediment substrate;Sponges;9
+24;SOCBOR2;120;-16.4367;-151.7536;Barrier reef;North;Wall;Caves and CCA;Sediment substrate;Sponges;2
+25;SOCMOO1;6;-17.4772;-149.8511;Volcanic Island;North;Moderate;Corals;Fixed substrate;None;11
+26;SOCMOO1;20;-17.4772;-149.8511;Volcanic Island;North;Moderate;Corals;Fixed substrate;CCA;20
+27;SOCMOO1;40;-17.4772;-149.8511;Volcanic Island;North;Moderate;Sediment and substrate;Sediment substrate;CCA;22
+28;SOCMOO1;60;-17.4772;-149.8511;Volcanic Island;North;Moderate;Sediment and CCA;Fixed substrate;CCA;17
+29;SOCMOO1;90;-17.4772;-149.8511;Volcanic Island;North;Steep;CCA;Fixed substrate;CCA;5
+30;SOCMOO1;120;-17.4772;-149.8511;Volcanic Island;North;Wall;Turf, gorgonias;Fixed substrate;Sponges;1
+31;SOCMOO2;6;-17.4773;-149.7596;Volcanic Island;North-east;Gentle;Corals and substrate;Fixed substrate;None;13
+32;SOCMOO2;20;-17.4773;-149.7596;Volcanic Island;North-east;Moderate;Corals;Fixed substrate;CCA;22
+33;SOCMOO2;40;-17.4773;-149.7596;Volcanic Island;North-east;Moderate;Sand and rubbe;Sediment substrate;CCA;22
+34;SOCMOO2;60;-17.4773;-149.7596;Volcanic Island;North-east;Steep;CCA a bit of sediment;Fixed substrate;CCA;23
+35;SOCMOO2;90;-17.4773;-149.7596;Volcanic Island;North-east;Steep;CCA and sediment;Sediment substrate;CCA;6
+36;SOCMOO2;120;-17.4773;-149.7596;Volcanic Island;North-east;Steep;Caves;Fixed substrate;Sponges;2
+37;SOCTAH1;6;-17.5422;-149.6188;Volcanic Island;West;Moderate;Corals and substrate;Fixed substrate;None;12
+38;SOCTAH1;20;-17.5422;-149.6188;Volcanic Island;West;Moderate;Susbtrate;Fixed substrate;None;18
+39;SOCTAH1;40;-17.5422;-149.6188;Volcanic Island;West;Moderate;Sediment and rubble;Rubble;CCA;19
+40;SOCTAH1;60;-17.5422;-149.6188;Volcanic Island;West;Steep;CCA and sediment;Sediment substrate;CCA;19
+41;SOCTAH1;90;-17.5422;-149.6188;Volcanic Island;West;Wall;Substrate CCA and turf;Fixed substrate;Sponges;2
+42;SOCTAH1;120;-17.5422;-149.6188;Volcanic Island;West;Wall;Substrate and turf;Sediment substrate;Sponges;2
+43;SOCTAH2;6;-17.6295;-149.621;Volcanic Island;West;Wall;Dead corals and CCA;Fixed substrate;None;13
+44;SOCTAH2;20;-17.6295;-149.621;Volcanic Island;West;Wall;Sediment and CCA;Fixed substrate;CCA;20
+45;SOCTAH2;40;-17.6295;-149.621;Volcanic Island;West;Wall;Sediment, CCA and Corals;Sediment substrate;CCA;15
+46;SOCTAH2;60;-17.6295;-149.621;Volcanic Island;West;Steep;Black sediment and corals;Sediment substrate;Sponges;10
+47;SOCTAH2;90;-17.6295;-149.621;Volcanic Island;West;Wall;Black sediment and sponges. Caves;Sediment substrate;Sponges;1
+48;SOCTAH2;120;-17.6295;-149.621;Volcanic Island;West;Wall;Black sediment and gorgonias. Caves;Sediment substrate;Sponges;0
+49;TUAMAK1;6;-15.8259;-148.2797;Uplifted carbonate island;West;Moderate;Corals and substrate;Fixed substrate;None;11
+50;TUAMAK1;20;-15.8259;-148.2797;Uplifted carbonate island;West;Wall;Porites rus and substrate;Fixed substrate;None;11
+51;TUAMAK1;40;-15.8259;-148.2797;Uplifted carbonate island;West;Moderate;Substrate and rubble;Rubble;Sponges;15
+52;TUAMAK1;60;-15.8259;-148.2797;Uplifted carbonate island;West;Steep;Leptoseris. Substrate and sediment;Fixed substrate;Macroalgae;15
+53;TUAMAK1;90;-15.8259;-148.2797;Uplifted carbonate island;West;Wall;Leptoseris and green algae;Sediment substrate;Macroalgae;7
+54;TUAMAK1;120;-15.8259;-148.2797;Uplifted carbonate island;West;Wall;Substrate and turf;Sediment substrate;CCA;2
+55;TUAMAK2;6;-15.8231;-148.2793;Uplifted carbonate island;West;Wall;Substrate turf and sponges;Fixed substrate;None;11
+56;TUAMAK2;20;-15.8231;-148.2793;Uplifted carbonate island;West;Wall;Leptoseris and green algae;Fixed substrate;Sponges;11
+57;TUAMAK2;40;-15.8231;-148.2793;Uplifted carbonate island;West;Wall;Encrusting corals;Fixed substrate;None;14
+58;TUAMAK2;60;-15.8231;-148.2793;Uplifted carbonate island;West;Wall;Substrate;Fixed substrate;Macroalgae;16
+59;TUAMAK2;90;-15.8231;-148.2793;Uplifted carbonate island;West;Wall;Porites rus and substrate;Fixed substrate;Macroalgae;9
+60;TUAMAK2;120;-15.8231;-148.2793;Uplifted carbonate island;West;Moderate;Corals and substrate;Sediment substrate;Sponges;2
+61;TUARAN1;6;-14.9803;-147.6132;Atoll;North-east;Gentle;Corals;Fixed substrate;Macroalgae;10
+62;TUARAN1;20;-14.9803;-147.6132;Atoll;North-east;Moderate;Substrate and rubble;Fixed substrate;Macroalgae;19
+63;TUARAN1;40;-14.9803;-147.6132;Atoll;North-east;Moderate;Pachyseris ;Fixed substrate;Sponges;24
+64;TUARAN1;60;-14.9803;-147.6132;Atoll;North-east;Moderate;Sediment and Pachyseris;Sediment substrate;Sponges;19
+65;TUARAN1;90;-14.9803;-147.6132;Atoll;North-east;Moderate;Sediment;Sediment substrate;Sponges;8
+66;TUARAN1;120;-14.9803;-147.6132;Atoll;North-east;Steep;Turf, sediment, sponges;Sediment substrate;Sponges;4
+67;TUARAN2;6;-14.9976;-147.5843;Atoll;North-east;Steep;Corals and CCA;Fixed substrate;CCA;11
+68;TUARAN2;20;-14.9976;-147.5843;Atoll;North-east;Moderate;Porites and CCA;Fixed substrate;CCA;19
+69;TUARAN2;40;-14.9976;-147.5843;Atoll;North-east;Moderate;Pachyseris, sediment, macroalgae;Sediment substrate;Macroalgae;23
+70;TUARAN2;60;-14.9976;-147.5843;Atoll;North-east;Moderate;Pachyseris and sponges;Sediment substrate;Macroalgae;20
+71;TUARAN2;90;-14.9976;-147.5843;Atoll;North-east;Moderate;Sediment and turf;Sediment substrate;CCA;12
+72;TUARAN2;120;-14.9976;-147.5843;Atoll;North-east;Gentle;Sediment, hydroids and laminar corals;Sediment substrate;None;5
+73;TUARAR1;6;-16.0052;-142.4517;Atoll;North-west;Moderate;Corals and substrate;Fixed substrate;None;12
+74;TUARAR1;20;-16.0052;-142.4517;Atoll;North-west;Steep;Porites;Fixed substrate;Macroalgae;15
+75;TUARAR1;40;-16.0052;-142.4517;Atoll;North-west;Steep;Pachyseris ;Fixed substrate;Macroalgae;12
+76;TUARAR1;60;-16.0052;-142.4517;Atoll;North-west;Steep;Pachyseris and porites;Fixed substrate;Sponges;18
+77;TUARAR1;90;-16.0052;-142.4517;Atoll;North-west;Steep;Substrate;Sediment substrate;Sponges;11
+78;TUARAR1;120;-16.0052;-142.4517;Atoll;North-west;Steep;Sediment and turf;Sediment substrate;Sponges;3
+79;TUARAR2;6;-16.0231;-142.4633;Atoll;North-west;Moderate;Substrate;Fixed substrate;CCA;11
+80;TUARAR2;20;-16.0231;-142.4633;Atoll;North-west;Steep;Porites;Fixed substrate;Sponges;13
+81;TUARAR2;40;-16.0231;-142.4633;Atoll;North-west;Steep;Pachyseris and CCA;Fixed substrate;CCA;18
+82;TUARAR2;60;-16.0231;-142.4633;Atoll;North-west;Wall;Substrate;Fixed substrate;Sponges;16
+83;TUARAR2;90;-16.0231;-142.4633;Atoll;North-west;Steep;Substrate and turf;Sediment substrate;Cnidaria (non Scleractinian);6
+84;TUARAR2;120;-16.0231;-142.4633;Atoll;North-west;Wall;Substrate and turf;Sediment substrate;CCA;2
+85;TUATIK1;6;-15.0173;-148.2868;Atoll;West;Gentle;Substrate;Fixed substrate;Macroalgae;11
+86;TUATIK1;20;-15.0173;-148.2868;Atoll;West;Wall;Caves;Fixed substrate;Sponges;23
+87;TUATIK1;40;-15.0173;-148.2868;Atoll;West;Steep;Encrusting corals;Sediment substrate;CCA;21
+88;TUATIK1;60;-15.0173;-148.2868;Atoll;West;Steep;Corals, CCA, Sponges;Sediment substrate;CCA;17
+89;TUATIK1;90;-15.0173;-148.2868;Atoll;West;Wall;Caves and sponges;Fixed substrate;Sponges;2
+90;TUATIK1;120;-15.0173;-148.2868;Atoll;West;Moderate;Sediment and sand;Sediment substrate;None;2
+91;TUATIK2;6;-14.9641;-148.2671;Atoll;North-west;Moderate;Corals;Fixed substrate;Macroalgae;15
+92;TUATIK2;20;-14.9641;-148.2671;Atoll;North-west;Moderate;Corals, macroalgae, Clionidae;Fixed substrate;Macroalgae;20
+93;TUATIK2;40;-14.9641;-148.2671;Atoll;North-west;Steep;Pachyseris ;Fixed substrate;Sponges;23
+94;TUATIK2;60;-14.9641;-148.2671;Atoll;North-west;Steep;Pachyseris and sand;Sediment substrate;Sponges;18
+95;TUATIK2;90;-14.9641;-148.2671;Atoll;North-west;Wall;Turf, sponges, echinophyllias;Sediment substrate;Sponges;10
+96;TUATIK2;120;-14.9641;-148.2671;Atoll;North-west;Wall;Substrate and sponges;Sediment substrate;Sponges;3
