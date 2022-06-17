@@ -136,7 +136,7 @@ row.names(benthic_substrate_data) <- benthic_substrate_data[,"ID"]
 
 benthic_substrate_data <- benthic_substrate_data[,-c(1,2,3,7)]
 
-class(benthic_substrate_data) <- "numeric"
+class(benthic_substrate_data) <- "numeric" 
 
 # Unnecessary because later you create a database of all environmental data together
 # write.csv (benthic_substrate_data,  "Data/benthic_substrate_data.csv")

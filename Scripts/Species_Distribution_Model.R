@@ -4,7 +4,7 @@
 # Tutorial https://cran.r-project.org/web/packages/gjam/vignettes/gjamVignette.html
 
 #-----------------------------------------------------------------------------
-library(gjam)
+library(gjam) 
 
 
 # THEORETICAL APPROACH: gjamSimData => with stochastic data, do not fit for personal data
@@ -59,10 +59,10 @@ gjamPlot(output=out, plotPars = pl)
 
 # load data
 #---------
-# Response matrix
+# Response matrix 
 resp <- read.csv(file = "Data/resp_data_living_benthos.csv", header = T, dec = ".", sep = ",", row.names = 1)
 head(resp)
-
+ 
 
 # Environmental predictors data
 pred <- read.csv(file = "Data/env_data.csv", header = T, dec = ".", sep = ",", row.names = 1)
