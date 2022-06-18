@@ -1,1 +1,33 @@
 Necessary data to replicate the analysis
+
+
+The mother data is rndpts_genus_form
+
+It is recommended to run the script in the following order: 
+
+First: "Data_Vis_Graphs_Bayesian_Preparation.R"
+
+Second: "Preparation_Species_Distribution_Model.R"
+
+Third: "Visual_Correlations_Depths.R"
+
+Fourth: "Depth_Distribution_Plots.R"
+
+Five: "Visual_PCA_Environment_Scleractinia.R"
+
+Sixth: "Bayesian_models.R"
+
+Seventh: "Species_Distribution_model.R"
+
+
+
+#########
+
+
+Yet, every script is independent and can be run alone. 
+Scripts are simplified to reproduce the figures and analysis of the study. 
+
+If further information is needed, please contact gonzalo.prb@gmail.com
+
+
+ 
