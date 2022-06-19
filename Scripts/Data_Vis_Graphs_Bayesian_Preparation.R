@@ -58,7 +58,7 @@ rndpts_df <- aggregate (Cover ~ Unique_Image_ID + Date + Site + Archipelago + Is
 
 # Prepare different databases, per genus, site, depth
 rndpts_df <- rndpts_df %>% complete( Island,Island_Site,Depth,Quadrat,fill = list(Cover = 0))
-genus_cover_site <- ddply(rndpts_df, ~ Archipelago ~ Island +Island_Site + Depth + Category + Coral_genus, function(x){c(Cover = sum(x$Cover)/30) })
+genus_cover_site <- ddply(rndpts_df, ~ Archipelago + Island +Island_Site + Depth + Category + Coral_genus, function(x){c(Cover = sum(x$Cover)/30) })
 
 coral_cover_site  <- ddply(genus_cover_site, ~ Island +Island_Site + Depth , function(x){c(Cover = sum(x$Cover), Sd = sd(x$Cover), se=sd(x$Cover) / sqrt(length(x$Cover))) })
 coral_cover_site[is.na(coral_cover_site)] <- 0
