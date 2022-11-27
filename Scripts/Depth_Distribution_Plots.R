@@ -139,7 +139,7 @@ write.csv (Total_cover_data_coral_forms,  "Data/Total_cover_data_coral_forms.csv
 
 ### Plot of all benthic groups per depths / Scleractinia cover instead of morphologies
 
-allbenthosdata <- read.csv(file = "Data/allbenthosdata.csv", header = T, dec = ".", sep = ",", row.names = 1)
+allbenthosdata <- read.csv(file = "Data/allbenthosdata.csv", header = T, dec = ".", sep = ";", row.names = 1)
 
 # Complete to consider 0 before doing the mean
 allbenthosdata <- allbenthosdata %>% complete( Island,Island_Site,Depth,Quadrat,Category,fill = list(Cover = 0))
